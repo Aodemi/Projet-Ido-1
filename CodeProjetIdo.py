@@ -80,7 +80,7 @@ class DcMotor(threading.Thread):
         while not self.kill:
             self.pi.write(self.dc_args["IN-1"], 0)
             self.pi.write(self.dc_args["IN-2"], 1)
-            self.pi.set_PWM_dutycycle(200)
+            self.pi.set_PWM_dutycycle(self.dc_args["EN"],200)
             time.sleep(0.15)
             self.pi.write(self.dc_args["IN-1"], 1)
             self.pi.write(self.dc_args["IN-2"], 0)
@@ -116,7 +116,7 @@ off_button = Button(pin=21,pi=pi)
 step_motor_tread = StepMotor(pi=pi, step_args=step_motor_args)
 dc_motor_thread1 = DcMotor(pi=pi,dc_args=dc_motor_args1)
 dc_motor_thread2 = DcMotor(pi=pi,dc_args=dc_motor_args2)
-threads = [step_motor_args, dc_motor_thread1, dc_motor_thread2]
+threads = [step_motor_tread, dc_motor_thread1, dc_motor_thread2]
  
  
 for i in threads: #starts the threads
